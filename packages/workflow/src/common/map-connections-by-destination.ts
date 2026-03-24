@@ -8,25 +8,25 @@ export function mapConnectionsByDestination(connections: IConnections) {
 	let connectionInfo;
 	let maxIndex: number;
 	for (const sourceNode in connections) {
-		if (!connections.hasOwnProperty(sourceNode)) {
+		if (!Object.hasOwn(connections, sourceNode)) {
 			continue;
 		}
 
 		for (const type of Object.keys(connections[sourceNode]) as NodeConnectionType[]) {
-			if (!connections[sourceNode].hasOwnProperty(type)) {
+			if (!Object.hasOwn(connections[sourceNode], type)) {
 				continue;
 			}
 
 			for (const inputIndex in connections[sourceNode][type]) {
-				if (!connections[sourceNode][type].hasOwnProperty(inputIndex)) {
+				if (!Object.hasOwn(connections[sourceNode][type], inputIndex)) {
 					continue;
 				}
 
 				for (connectionInfo of connections[sourceNode][type][inputIndex] ?? []) {
-					if (!returnConnection.hasOwnProperty(connectionInfo.node)) {
+					if (!Object.hasOwn(returnConnection, connectionInfo.node)) {
 						returnConnection[connectionInfo.node] = {};
 					}
-					if (!returnConnection[connectionInfo.node].hasOwnProperty(connectionInfo.type)) {
+					if (!Object.hasOwn(returnConnection[connectionInfo.node], connectionInfo.type)) {
 						returnConnection[connectionInfo.node][connectionInfo.type] = [];
 					}
 

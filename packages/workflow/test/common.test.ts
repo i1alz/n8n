@@ -109,4 +109,21 @@ describe('getConnectionsByDestination', () => {
 			},
 		});
 	});
+
+	it('should handle source node names that shadow hasOwnProperty', () => {
+		const connections: IConnections = {
+			hasOwnProperty: {
+				[NodeConnectionTypes.Main]: [[{ node: 'Node2', type: NodeConnectionTypes.Main, index: 0 }]],
+			},
+		};
+
+		const result = mapConnectionsByDestination(connections);
+		expect(result).toEqual({
+			Node2: {
+				[NodeConnectionTypes.Main]: [
+					[{ node: 'hasOwnProperty', type: NodeConnectionTypes.Main, index: 0 }],
+				],
+			},
+		});
+	});
 });
